@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的博客</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background: #2c3e50;
+            color: #ecf0f1;
+            text-align: center;
+            padding: 1rem;
+        }
+        nav {
+            background: #34495e;
+            padding: 0.5rem;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 10px;
+        }
+        nav ul li a {
+            color: #ecf0f1;
+            text-decoration: none;
+        }
+        main {
+            padding: 2rem;
+            max-width: 800px;
+            margin: auto;
+            background-color: white;
+        }
+        article {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #bdc3c7;
+            padding-bottom: 1rem;
+        }
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background: #2c3e50;
+            color: #ecf0f1;
+        }
+        @media screen and (max-width: 600px) {
+            nav ul li {
+                display: block;
+                margin-bottom: 5px;
+            }
+            main {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>我的博客</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#">首页</a></li>
+            <li><a href="#">分类</a></li>
+            <li><a href="#">关于</a></li>
+            <li><a href="#">联系</a></li>
+        </ul>
+    </nav>
+    <main>
+        <article>
+            <h2>博客文章标题</h2>
+            <time datetime="2023-04-15">发布日期: 2023年4月15日</time>
+            <p>这里是博客文章的摘要。您可以在这里简要介绍文章的内容，吸引读者点击阅读更多。</p>
+            <a href="#">阅读更多</a>
+        </article>
+        <article>
+            <h2>另一篇博客文章</h2>
+            <time datetime="2023-04-10">发布日期: 2023年4月10日</time>
+            <p>这是另一篇博客文章的摘要。保持简洁明了，让读者对文章内容有大致了解。</p>
+            <a href="#">阅读更多</a>
+        </article>
+    </main>
+    <footer>
+        <p>&copy; 2023 我的博客. 保留所有权利。</p>
+    </footer>
+</body>
+</html>
