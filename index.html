@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的个人技术网站</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        #search-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 300px;
+            background-image: url('https://10wallpaper.com/wallpaper/1366x768/2409/Starry_Sky_Badlands_Mountains_Night_Peak_5K_1366x768.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+        #search-wrapper {
+            position: relative;
+            width: 50%;
+        }
+        #search-input {
+            width: 100%;
+            padding: 10px 40px 10px 10px;
+            border: none;
+            font-size: 18px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+        }
+        #search-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            width: 24px;
+            height: 24px;
+        }
+        #sidebar {
+            width: 200px;
+            background-color: rgb(45, 41, 68);
+            position: fixed;
+            left: 0;
+            top: 300px;
+            bottom: 0;
+            overflow-y: auto;
+        }
+        #sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        #sidebar li a {
+            color: white;
+            text-decoration: none;
+            padding: 15px;
+            display: block;
+            font-family: "华文行楷", "楷体", cursive;
+            font-size: 20px;
+        }
+        #sidebar li a:hover {
+            background-color: #555;
+        }
+        #content {
+            margin-left: 200px;
+            padding: 320px 20px 20px;
+            background-color: #f5f5f5;
+        }
+        .section {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        .section.active {
+            display: block;
+        }
+        
+        #profile-container {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            z-index: 20;
+        }
+        #avatar {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+            border-radius: 50%;
+        }
+        #author-name {
+            color: white;
+            font-size: 24px;
+            margin-right: 70px;
+            font-family: "华文行楷", "楷体", cursive;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            letter-spacing: 2px;
+        }
+        #wechat-icon {
+            width: 48px;
+            height: 48px;
+            cursor: pointer;
+            position: relative;
+        }
+        #wechat-icon img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+        #wechat-qr {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 150px;
+            height: auto;
+        }
+        #wechat-qr img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 0;
+        }
+        #wechat-icon:hover #wechat-qr {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            #search-container {
+                height: 200px;
+            }
+            #search-wrapper {
+                width: 80%;
+            }
+            #sidebar {
+                top: 200px;
+            }
+            #content {
+                padding-top: 220px;
+            }
+        }
+
+        .site-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 20px;
+        }
+
+        .site-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 250px; /* 固定宽度为 250px */
+            min-height: 50px; /* 最小高度，可以根据需要调整 */
+            padding: 10px;
+            background-color: rgb(80, 78, 127);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px; /* 增大字体大小 */
+            transition: background-color 0.3s;
+            text-align: center;
+            word-break: break-word; /* 允许长单词换行 */
+        }
+
+        .site-link:hover {
+            background-color: rgb(100, 98, 147);
+        }
+    </style>
+</head>
+<body>
+    <div id="profile-container">
+        <img id="avatar" src="图片素材/头像.jpg" alt="我的头像">
+        <span id="author-name">一叶之秋</span>
+        <div id="wechat-icon">
+            <img src="图片素材/weixin.png" alt="微信图标" width="48" height="48">
+            <div id="wechat-qr">
+                <img src="图片素材/加好友.jpg" alt="微信二维码">
+            </div>
+        </div>
+    </div>
+
+    <div id="search-container">
+        <div id="search-wrapper">
+            <input type="text" id="search-input" placeholder="站内搜索...">
+            <img id="search-icon" src="图片素材/搜索图标.png" alt="搜索">
+        </div>
+    </div>
+
+    <nav id="sidebar">
+        <ul id="nav-list">
+            <!-- 导航项将通过JavaScript动态添加 -->
+        </ul>
+    </nav>
+
+    <div id="content">
+        <!-- 内容区域将通过JavaScript动态添加 -->
+    </div>
+
+    <script>
+        function fetchNavData() {
+            // 将导航资源.txt的内容直接粘贴在这里
+            const data = `免费影视:
+影猫仓库,https://ymck.pro/
+爱迪影视,https://adys.tv/
+素白白,https://www.subaibaiys.com/
+注视影视,https://gaze.run/?ref=yinghe.app
+不太灵影视,https://www.7bt0.com/
+布谷4K,https://www.bugutv.org/
+音范丝4K,https://www.yinfans.me/page/140?ivk_sa=1025922p
+freeok,https://www.freeok.vip/
+
+免费动漫:
+风车动漫,http://yuanjinjuan.com/ 
+克拉TV,https://www.kelatv.com/
+MX动漫,https://www.mxdmp.com/
+樱花动漫,http://www.yinghua8.io/ 
+宫下动漫,https://www.iyxdm.one/
+奇米动漫,http://www.qimiqimi.net/
+
+免费音乐:
+音乐搜索器,http://www.xmsj.org/
+freeMp3,http://tool.liumingye.cn/music/?page=searchPage
+放屁网,https://www.fangpi.net/
+音悦网,https://www.yinyuetai.com/
+下载吧,https://xiageba.com/
+muscienc,https://www.musicenc.com/
+熊猫无损,https://www.xmwav.com/
+
+资源搜索:
+克隆窝,https://www.xmwav.com/
+剥壳,https://www.ghxi.com/
+小纸条,https://ali.gitcafe.ink/
+资源帝电子书,https://shu.ziyuandi.cn/
+小白盘,https://www.xiaobaipan.com/
+乐学多思,https://www.lexueduosi.com/#/
+
+学习网站:
+国家高等教育平台,https://www.chinaooc.com.cn/
+国家职业教育平台,https://www.smartedu.cn/special/TeacherTrainingW2024
+国家哲学社会科学文献中心,https://www.ncpssd.org/
+终身教育平台,https://le.ouchn.cn/home
+考试酷,https://www.examcoo.com/
+数学公式,https://mathsolver.microsoft.com/zh
+
+游戏娱乐:
+嗅灵数娱,https://www.linggo.top/
+520,https://www.gamer520.com/
+在线dos,https://dos.lol/
+游戏星空,https://gamestarfield.com/`;
+
+            console.log("Raw data:", data);
+            const navData = parseNavData(data);
+            console.log("Parsed navigation data:", navData);
+            createNavigation(navData);
+        }
+
+        function parseNavData(text) {
+            const lines = text.split('\n');
+            const navData = {};
+            let currentCategory = '';
+
+            lines.forEach(line => {
+                line = line.trim();
+                if (line.endsWith(':')) {
+                    currentCategory = line.slice(0, -1);
+                    navData[currentCategory] = [];
+                } else if (line && currentCategory) {
+                    const [name, url] = line.split(',');
+                    if (name && url) {
+                        navData[currentCategory].push([name.trim(), url.trim()]);
+                    }
+                }
+            });
+
+            return navData;
+        }
+
+        function createNavigation(navData) {
+            const navList = document.getElementById('nav-list');
+            const contentDiv = document.getElementById('content');
+
+            // 清空现有内容
+            navList.innerHTML = '';
+            contentDiv.innerHTML = '';
+
+            // 创建导航菜单和内容
+            for (const [category, sites] of Object.entries(navData)) {
+                // 添加导航项
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = `#${category}`;
+                a.textContent = category;
+                li.appendChild(a);
+                navList.appendChild(li);
+
+                // 创建对应的内容区域
+                const section = document.createElement('div');
+                section.id = category;
+                section.className = 'section';
+
+                const siteContainer = document.createElement('div');
+                siteContainer.className = 'site-container';
+                for (const [siteName, siteUrl] of sites) {
+                    const siteLink = document.createElement('a');
+                    siteLink.href = siteUrl;
+                    siteLink.textContent = siteName;
+                    siteLink.className = 'site-link';
+                    siteLink.target = "_blank"; // 在新标签页中打开链接
+                    siteContainer.appendChild(siteLink);
+                }
+                section.appendChild(siteContainer);
+                contentDiv.appendChild(section);
+            }
+
+            // 导航和内容切换逻辑
+            const links = document.querySelectorAll('#sidebar a');
+            const sections = document.querySelectorAll('.section');
+
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    sections.forEach(section => {
+                        section.classList.remove('active');
+                    });
+                    document.getElementById(targetId).classList.add('active');
+                });
+            });
+
+            // 默认显示第一个部分
+            if (sections.length > 0) {
+                sections[0].classList.add('active');
+            }
+        }
+
+        // 初始加载导航数据
+        fetchNavData();
+
+        // 搜索功能
+        document.getElementById('search-input').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const sections = document.querySelectorAll('.section');
+            
+            sections.forEach(section => {
+                const text = section.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    section.style.display = 'block';
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+        });
+
+        document.getElementById('search-icon').addEventListener('click', function() {
+            const searchInput = document.getElementById('search-input');
+            const searchTerm = searchInput.value.toLowerCase();
+            const sections = document.querySelectorAll('.section');
+            
+            sections.forEach(section => {
+                const text = section.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    section.style.display = 'block';
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
