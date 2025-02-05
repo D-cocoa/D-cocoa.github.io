@@ -67,21 +67,9 @@
             display: block;
             font-family: "华文行楷", "楷体", cursive;
             font-size: 20px;
-            transition: all 0.3s ease;  /* 添加平滑过渡效果 */
         }
         #sidebar li a:hover {
-            background-color: rgb(50, 45, 75);  /* 稍深的紫色，与激活状态协调 */
-            color: rgb(190, 190, 255);  /* 略微发亮的文字 */
-            border-left: 4px solid rgb(127, 122, 157);  /* 浅紫色边框 */
-        }
-        #sidebar li a.active {
-            background-color: rgb(60, 55, 90);  /* 当前的深紫色背景 */
-            border-left: 4px solid rgb(147, 142, 177);  /* 当前的浅紫色边框 */
-            color: rgb(200, 200, 255);  /* 当前的亮色文字 */
-        }
-        #sidebar li a.active:hover {
-            background-color: rgb(65, 60, 95);  /* 比激活状态稍亮一点 */
-            border-left: 4px solid rgb(157, 152, 187);  /* 比激活状态稍亮一点 */
+            background-color: #555;
         }
         #content {
             margin-left: 200px;
@@ -94,7 +82,6 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             margin-bottom: 20px;
             overflow: hidden;
-            display: block;  /* 改为默认显示所有内容 */
         }
         .section.active {
             display: block;
@@ -194,29 +181,20 @@
             background-color: rgb(100, 98, 147);
         }
 
-        /* 优化分类标题样式 */
-        .section-title {
-            font-size: 1.2em;
-            color: rgb(240, 240, 255);  /* 更亮的文字颜色 */
-            margin: 25px 0 15px 0;      /* 调整间距 */
-            padding: 8px 15px;          /* 增加内边距 */
-            background: linear-gradient(to right, rgb(80, 75, 110), rgb(100, 95, 130));  /* 渐变背景，颜色更柔和 */
-            border-radius: 6px;         /* 圆角 */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  /* 轻微阴影 */
-            border-left: 4px solid rgb(180, 175, 200);  /* 更柔和的左侧边框 */
-            letter-spacing: 1px;        /* 字间距 */
+        /* 导航项激活状态样式 */
+        #sidebar li a.active {
+            background-color: rgb(60, 55, 90);  /* 深紫色背景 */
+            border-left: 4px solid rgb(147, 142, 177);  /* 浅紫色边框 */
+            color: rgb(200, 200, 255);  /* 更亮的文字颜色 */
         }
 
-        /* 第一个标题特殊处理 */
-        .section:first-child .section-title {
-            margin-top: 10px;
+        /* 内容区域的显示控制 */
+        .section {
+            display: none;  /* 默认隐藏所有内容 */
         }
 
-        /* 悬浮效果 */
-        .section-title:hover {
-            background: linear-gradient(to right, rgb(90, 85, 120), rgb(110, 105, 140));  /* 悬浮时的渐变背景 */
-            transform: translateX(5px);  /* 轻微位移 */
-            transition: all 0.3s ease;   /* 平滑过渡 */
+        .section.active {
+            display: block;  /* 显示激活的内容 */
         }
     </style>
 </head>
@@ -335,12 +313,16 @@ muscienc,https://www.musicenc.com/
             contentDiv.innerHTML = '';
 
             // 创建导航菜单和内容
+            let isFirst = true;  // 用于标记第一个项目
             for (const [category, sites] of Object.entries(navData)) {
                 // 添加导航项
                 const li = document.createElement('li');
                 const a = document.createElement('a');
                 a.href = `#${category}`;
                 a.textContent = category;
+                if (isFirst) {
+                    a.classList.add('active');  // 第一个导航项默认激活
+                }
                 li.appendChild(a);
                 navList.appendChild(li);
 
@@ -348,12 +330,10 @@ muscienc,https://www.musicenc.com/
                 const section = document.createElement('div');
                 section.id = category;
                 section.className = 'section';
-
-                // 添加分类标题
-                const title = document.createElement('div');
-                title.className = 'section-title';
-                title.textContent = category;
-                section.appendChild(title);
+                if (isFirst) {
+                    section.classList.add('active');  // 第一个内容区域默认显示
+                    isFirst = false;
+                }
 
                 const siteContainer = document.createElement('div');
                 siteContainer.className = 'site-container';
@@ -369,8 +349,10 @@ muscienc,https://www.musicenc.com/
                 contentDiv.appendChild(section);
             }
 
-            // 导航点击事件 - 滚动到对应位置
+            // 添加导航点击事件
             const links = document.querySelectorAll('#sidebar a');
+            const sections = document.querySelectorAll('.section');
+
             links.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -380,10 +362,16 @@ muscienc,https://www.musicenc.com/
                     // 添加当前点击项的激活状态
                     this.classList.add('active');
 
-                    // 滚动到对应区域
+                    // 获取目标内容区域
                     const targetId = this.getAttribute('href').substring(1);
-                    const targetSection = document.getElementById(targetId);
-                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                    
+                    // 隐藏所有内容区域
+                    sections.forEach(section => {
+                        section.classList.remove('active');
+                    });
+                    
+                    // 显示目标内容区域
+                    document.getElementById(targetId).classList.add('active');
                 });
             });
         }
